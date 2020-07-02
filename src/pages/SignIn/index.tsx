@@ -1,5 +1,5 @@
 import React, { useRef, useCallback } from "react";
-import { Container, Content,Image } from "./styles";
+import { Container, Content, Image } from "./styles";
 
 import { FormHandles } from "@unform/core";
 import { FiLogIn, FiMail, FiLock } from "react-icons/fi";
@@ -68,8 +68,12 @@ const SignIn: React.FC = () => {
           />
           <Button type="submit">Entrar</Button>
         </Form>
+        <Link to="/sigup">
+          <FiLogIn />
+          Criar Conta
+        </Link>
       </Content>
-      <Image/>
+      <Image />
     </Container>
   );
 };

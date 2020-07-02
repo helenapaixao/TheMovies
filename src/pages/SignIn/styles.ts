@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import signBackgroundImg from "../../assets/home_cinema.svg";
+
 export const Container = styled.div`
   height: 100vh;
   display: flex;
@@ -25,5 +26,12 @@ export const Content = styled.div`
   h1 {
     margin-bottom: 20px;
     align-items: center;
+    margin-left: 50px;
   }
+
 `;
+
+export const Link = styled.div`
+
+
+` ;

@@ -20,7 +20,7 @@ body {
 
 
 body, input, button {
-    font-family: 'Notable', sans-serif;
+    font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
     font-weight: normal;
 
