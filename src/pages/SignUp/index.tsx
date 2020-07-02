@@ -7,7 +7,7 @@ import {
   FiMail,
   FiUser,
   FiLock,
-  FiDatabase,
+  FiGift,
 } from "react-icons/fi";
 import { Form } from "@unform/web";
 import * as Yup from "yup";
@@ -40,7 +40,6 @@ const SignUp: React.FC = () => {
         const shema = Yup.object().shape({
           name: Yup.string().required("Nome obrigatório"),
           email: Yup.string().required("Email obrigatório").email(),
-
           password: Yup.string().min(6, "No minimo senha com 6 caracteres"),
           date: Yup.string().required("Data de nascimento"),
         });
@@ -77,7 +76,7 @@ const SignUp: React.FC = () => {
           />
           <MaskInput
             name="date"
-            icon={FiDatabase}
+            icon={FiGift}
             mask="99/99/9999"
             placeholder="Data de nascimento"
           />
