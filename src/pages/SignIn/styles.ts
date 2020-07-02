@@ -4,10 +4,8 @@ export const Container = styled.div`
   height: 100vh;
   display: flex;
   align-items: stretch;
-    background: #972d07;
+  background: #972d07;
 `;
-
-
 
 export const Content = styled.div`
   display: flex;
