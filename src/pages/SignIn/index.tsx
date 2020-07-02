@@ -1,12 +1,17 @@
 import React, { useRef, useCallback } from "react";
-import { Container, Content } from "./styles";
-import { FiMail, FiLock } from "react-icons/fi";
+import { Container, Content,Image } from "./styles";
 
 import { FormHandles } from "@unform/core";
-import * as Yup from 'yup';
+import { FiLogIn, FiMail, FiLock } from "react-icons/fi";
+import { Form } from "@unform/web";
+import * as Yup from "yup";
+import { Link, useHistory } from "react-router-dom";
 
-import Button from "../../components/Button";
+import getValidationErrors from "../../utils/getValidationErrors";
+import { useAuth } from "../../hooks/auth";
+
 import Input from "../../components/Input";
+import Button from "../../components/Button";
 
 interface SignInFormData {
   email: string;
@@ -14,47 +19,57 @@ interface SignInFormData {
 }
 
 const SignIn: React.FC = () => {
-    const formRef = useRef<FormHandles>(null);
+  const formRef = useRef<FormHandles>(null);
+  const { signIn } = useAuth();
 
-    const handleSubmit = useCallback(
-        async(data: SignInFormData) =>  {
-            try {
-                formRef.current?.setErrors({});
+  const history = useHistory();
 
-                const shema = Yup.object().shape({
-                    email: Yup.string().required('Email obrigatório').email(),
-                    password: Yup.string().required('Senha obrigatória'),
-                });
+  const handleSubmit = useCallback(
+    async (data: SignInFormData) => {
+      try {
+        formRef.current?.setErrors({});
 
-                await shema.validate(data, {
-                    abortEarly:false,
-                })
+        const shema = Yup.object().shape({
+          email: Yup.string().required("Email obrigatório").email(),
+          password: Yup.string().required("Senha obrigatória"),
+        });
 
-                const singIn({
-                    email:data.email,
-                    password: data.password,
-                })
-                history.push('/dashboard');
-            }catch(err) {
-                if(err instanceof Yup.ValidationError) {
-                    const errors = getValidationErrors(err);
-                    formRef.current?.setErrors(errors);
-                }
+        await shema.validate(data, {
+          abortEarly: false,
+        });
 
-
-            }
-        },
-        [singIn,history]
-    )
+        await signIn({
+          email: data.email,
+          password: data.password,
+        });
+        history.push("/dashboard");
+      } catch (err) {
+        if (err instanceof Yup.ValidationError) {
+          const errors = getValidationErrors(err);
+          formRef.current?.setErrors(errors);
+          return;
+        }
+      }
+    },
+    [signIn, history]
+  );
 
   return (
     <Container>
       <Content>
-        <h1>Faça seu login</h1>
-        <Input name="email" icon={FiMail} placeholder="E-mail" />
-
-        <Button type="submit">Entrar</Button>
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          <h1>Faça seu login</h1>
+          <Input name="email" icon={FiMail} placeholder="E-mail" />
+          <Input
+            name="password"
+            icon={FiLock}
+            type="password"
+            placeholder="Senha"
+          />
+          <Button type="submit">Entrar</Button>
+        </Form>
       </Content>
+      <Image/>
     </Container>
   );
 };
