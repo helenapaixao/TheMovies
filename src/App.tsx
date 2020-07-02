@@ -1,9 +1,9 @@
 import React from 'react';
-
+import SignIn from '../src/pages/SignIn'
 
 function App() {
   return (
-  <h1>Hello Bitch</h1>
+  <SignIn/>
   );
 }
 
