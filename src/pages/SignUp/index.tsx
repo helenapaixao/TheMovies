@@ -1,6 +1,7 @@
 import React, { useCallback, useRef } from "react";
 import { Container, Content } from "./styles";
 import { FormHandles } from "@unform/core";
+import Logo from '../../assets/logo.svg'
 
 import {
   FiArrowLeft,
@@ -65,6 +66,7 @@ const SignUp: React.FC = () => {
     <Container>
       <Content>
         <Form ref={formRef} onSubmit={handleSubmit}>
+        <img src={Logo} alt="logo"/>
           <h1>Faça seu cadastro</h1>
           <Input name="name" icon={FiUser} type="text" placeholder="Nome" />
           <Input name="email" icon={FiMail} type="email" placeholder="E-mail" />

@@ -1,5 +1,6 @@
 import React, { useRef, useCallback } from "react";
 import { Container, Content, Image } from "./styles";
+import Logo from '../../assets/logo.svg'
 
 import { FormHandles } from "@unform/core";
 import { FiLogIn, FiMail, FiLock } from "react-icons/fi";
@@ -58,6 +59,7 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <Form ref={formRef} onSubmit={handleSubmit}>
+            <img src={Logo} alt="logo"/>
           <h1>Faça seu login</h1>
           <Input name="email" icon={FiMail} placeholder="E-mail" />
           <Input
