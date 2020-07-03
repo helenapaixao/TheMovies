@@ -70,7 +70,7 @@ const SignIn: React.FC = () => {
           />
           <Button type="submit">Entrar</Button>
         </Form>
-        <Link to="/sigup">
+        <Link to="/signup">
           <FiLogIn />
           Criar Conta
         </Link>
