@@ -1,14 +1,14 @@
 import axios from 'axios';
 
-export const client = axios.create({
-    baseURL: 'https://api.themoviedb.org/3',
-    params: {
-      // eslint-disable-next-line @typescript-eslint/camelcase
-      api_key: '3a698e49aca87f202dc31535a74d7306',
-      language: 'en-US'
-    }
-  });
-  
+
+const API_TOKEN = '3a698e49aca87f202dc31535a74d7306';
+axios.defaults.headers.common = { Authorization: `Bearer '3a698e49aca87f202dc31535a74d7306'` };
+
+const client = axios.create({
+  baseURL: 'https://api.themoviedb.org/3',
+
+});
+
 
 
 
