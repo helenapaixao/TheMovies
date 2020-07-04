@@ -5,16 +5,19 @@ export const Container = styled.div`
   background: #28262e;
   header {
     max-width: 1120px;
+    height:5px;
     margin: 30px auto;
     display: flex;
     align-items: center;
+
   }
 
   nav {
     div {
+        display: flex;
     }
     > img {
-      height: 80px;
+      height: 40px;
       margin-left: 20px;
     }
   }

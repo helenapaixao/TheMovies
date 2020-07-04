@@ -7,6 +7,16 @@ export const Container = styled.div`
   display: flex;
   align-items: stretch;
   background: #972d07;
+  a {
+      color: #f4ede8;
+      display: block;
+      margin-top: 24px;
+      text-decoration: none;
+      transition: color 0.2s;
+      &:hover {
+        color: ${shade(0.2, "#F4EDE8")};
+      }
+    }
 `;
 
 export const Image = styled.image`
