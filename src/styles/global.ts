@@ -23,6 +23,7 @@ body, input, button {
     font-family: 'Ubuntu', sans-serif;
     font-size: 16px;
     font-weight: normal;
+    color: #ffffff;
 
 }
 
@@ -33,6 +34,9 @@ h1,h2,h3,h4,h5,h6, strong {
 
 button {
     cursor: pointer;
+    border: 0;
+    font-weight: bold;
+    border-radius: 50px;
 }
 
 
