@@ -8,9 +8,20 @@ export default createGlobalStyle`
     outline: 0;
 }
 
+
+html {
+    font-size: 62,5%;
+  }
+
 img {
      height: 60px;
  }
+
+ #root {
+    margin: 0 auto;
+    padding-bottom:8rem;
+
+  }
 
 body {
     background: #972D07;
@@ -26,6 +37,29 @@ body, input, button {
     color: #ffffff;
 
 }
+@media (max-width:1200px) {
+    html{
+      font-size: 70%;
+    }
+  }
+
+  @media (max-width:768px) {
+    html{
+      font-size: 50%;
+    }
+  }
+
+  @media (max-width:576px) {
+    html{
+      font-size: 54%;
+    }
+  }
+
+  @media (min-width:768px) {
+    html{
+      font-size: 60%;
+    }
+  }
 
 
 h1,h2,h3,h4,h5,h6, strong {

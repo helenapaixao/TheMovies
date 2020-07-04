@@ -31,27 +31,22 @@ export async function getByGenre(type: string, genre: any[]) {
     return results;
 }
 
-// This function gets all genre and set it in an array.This will use in component/Family
 export async function getAllByGenre(genre: any[]) {
     let tv = await getByGenre("tv", genre);
     let movies = await getByGenre("movie", genre);
 
-    // more about concat array https://gist.github.com/yesvods/51af798dd1e7058625f4
     return [...tv, ...movies];
 }
 
-// It calls the endpoint to documentary genre
 export async function getDocumentaries() {
     return getByGenre("movie", [99]);
 }
 
-// It gets the search by query
 export async function getResults(query: string) {
     const response = await api.get(`search/multi?query=${query}`);
     return response.data.results;
 }
 
-// It gets the detail by type(tv/movie) and id
 export async function getDetail(type: string, id: string) {
     const response = await api.get(`${type}/${id}`);
     return response.data;
