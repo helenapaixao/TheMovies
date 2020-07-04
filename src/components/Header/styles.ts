@@ -3,9 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   padding: 32px 0px;
   background: #28262e;
+  width: 100%;
   header {
     max-width: 1120px;
-    height:5px;
+    padding: 0 2rem;
     margin: 30px auto;
     display: flex;
     align-items: center;
@@ -15,6 +16,7 @@ export const Container = styled.div`
   nav {
     div {
         display: flex;
+        
     }
     > img {
       height: 40px;

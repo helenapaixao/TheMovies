@@ -1,8 +1,8 @@
-import client from "./client";
+
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://api.themoviedb.org/3',
+    baseURL: 'https://localhost:3333',
   });
   
 export default api ;

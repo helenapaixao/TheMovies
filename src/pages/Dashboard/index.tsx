@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 
 import Header from "../../components/Header";
-
-
-import Movie from "../../components/Movie";
+import MoviePopular from '../../components/PopularMovies'
 
 import { MoviesContainer } from "./styles";
+
 
 interface Movies {
     id: string;
@@ -23,6 +22,7 @@ const Dashboard: React.FC = () => {
     return (
         <>
             <Header />
+            <MoviePopular/>
 
             <MoviesContainer data-testid="movies-list">
                 {movie && (

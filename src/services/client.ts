@@ -1,14 +1,19 @@
 import axios from 'axios';
 
-const API_TOKEN = process.env.REACT_APP_API_TOKEN || 'api-token';
-axios.defaults.headers.common = { Authorization: `Bearer ${API_TOKEN}` };
+export const client = axios.create({
+    baseURL: 'https://api.themoviedb.org/3',
+    params: {
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      api_key: '3a698e49aca87f202dc31535a74d7306',
+      language: 'en-US'
+    }
+  });
+  
 
-const client = axios.create({
-  baseURL: 'https://api.themoviedb.org/3',
-});
 
 
 export const API_BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
+
 
 export async function getPopularMovies() {
     const response = await client.get(`movies/popular`);
