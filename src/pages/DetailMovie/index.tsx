@@ -67,8 +67,6 @@ const Detail: React.FC = () => {
     return (
         <Container>
             <Header />
-
-            {/* checks mediaItem(tv/movie) and player video */}
             {mediaItem && !showVideo && (
                 <Box>
                     <ContentAll>
@@ -135,7 +133,10 @@ const Detail: React.FC = () => {
                                     </ul>
                                 </MoreInfo>
                             </ContentText>
-                            <ContentButton></ContentButton>
+                            <ContentButton>
+
+                            <button>Add to watch list</button>
+                            </ContentButton>
                         </ContentCol>
                         <ContentImg>
                             {mediaItem.poster_path !== null ? (

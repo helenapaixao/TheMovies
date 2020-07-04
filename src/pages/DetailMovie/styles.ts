@@ -44,7 +44,7 @@ export const ContentText = styled.div`
   padding-right: 5rem;
   & h3 {
     font-size: 2rem;
-    color: #a09999;
+    color: #ffb20f;
     padding: 1rem 0;
   }
 
@@ -101,6 +101,8 @@ export const ContentButton = styled.div`
   button {
     width: 223px;
     height: 40px;
+  background-color:#FFB20F; 
+    color: #28262e;
   }
 `;
 
@@ -117,3 +119,4 @@ export const ContentImg = styled.div`
     }
   }
 `;
+
