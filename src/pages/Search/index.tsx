@@ -6,10 +6,8 @@ import { Container, Content, Form, Error } from "./styles";
 
 import Header from "../../components/Header";
 import MediaCarousel from "../../components/Moviecarousel";
-import logo from "../../assets/logo.svg";
 
 import Button from "../../components/Button";
-import Input from "../../components/Input";
 import SearchInput from "../../components/SearchInput";
 
 export interface IResult {
@@ -42,7 +40,7 @@ const Search: React.FC = () => {
         event.preventDefault();
 
         if (!query) {
-            setInputError("To be continue, you need add a Search.");
+            setInputError("Para continuar você precisa buscar algo!! :)");
             return;
         }
 
@@ -67,16 +65,17 @@ const Search: React.FC = () => {
             <Container>
                 <Header />
                 <Content>
-                    <img src={logo} alt="logo" />
-
                     <Form onSubmit={handleSearch}>
                         <SearchInput
                             name="text"
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
-                            placeholder="Digite o nome do Filme"
+                            placeholder="Busque algum filme(genêro,ano)"
                         />
+                   
                         <Button type="submit">Buscar Filme</Button>
+                  
+               
                     </Form>
                 </Content>
 
@@ -84,7 +83,7 @@ const Search: React.FC = () => {
 
                 {result.length > 0 && (
                     <Section>
-                        <h1>Results for: {lastQuery}</h1>
+                        <h1>Resultados para: {lastQuery}</h1>
                         <MediaCarousel items={result} />
                     </Section>
                 )}

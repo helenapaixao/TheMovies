@@ -1,14 +1,11 @@
-import React from 'react';
+import React from "react";
 
-import { FiPower } from 'react-icons/fi';
-import { Container, Profile } from './styles';
-import { Link } from 'react-router-dom';
-import { useAuth } from '../../hooks/auth';
+import { FiPower, FiSearch } from "react-icons/fi";
+import { Container, Profile } from "./styles";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../hooks/auth";
 
-import Logo from '../../assets/logo.svg';
-
-
-
+import Logo from "../../assets/logo.svg";
 
 const Header: React.FC = () => {
     const { signOut } = useAuth();
@@ -33,6 +30,9 @@ const Header: React.FC = () => {
                                 </Link>
                             </div>
                             <div>
+                                <Link to="/search/">
+                                    <FiSearch />
+                                </Link>
                                 <button type="button" onClick={signOut}>
                                     <FiPower />
                                 </button>
