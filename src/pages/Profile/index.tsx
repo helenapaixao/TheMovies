@@ -1,6 +1,7 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 
 import { FiPlus } from "react-icons/fi";
+import api from '../../services/api2';
 
 import {
     Container,
@@ -14,8 +15,37 @@ import {
     Button,
     AddProfile,
 } from "./styles";
+import { useRouteMatch } from "react-router-dom";
+
+
+interface UserData {
+    name:string;
+    avatar:string;
+
+}
+
+interface UserParams {
+    id:string;
+    name:string;
+    email:string;
+}
 
 const Profiles: React.FC = () => {
+    const[user,setUsers] = useState<UserData[]>([]);
+  
+    const {params} = useRouteMatch<UserParams>();
+
+useEffect(() => {
+
+    api.get('users').then((response) => {
+        setUsers(response.data);
+        
+    })
+}
+
+,[])
+
+
     return (
         <Container>
             <Header></Header>
