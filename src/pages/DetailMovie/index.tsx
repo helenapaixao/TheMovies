@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useCallback } from "react";
 
 import { API_BASE_IMAGE_URL, getDetail } from "../../services/client";
 import { useRouteMatch } from "react-router-dom";
@@ -6,6 +6,7 @@ import { useRouteMatch } from "react-router-dom";
 import Header from "../../components/Header";
 
 import notfound from "../../assets/notfound.svg";
+import api from '../../services/api'
 
 import {
     Container,
@@ -46,7 +47,9 @@ interface Item {
 }
 
 const Detail: React.FC = () => {
+    const [movie, setMovie] = useState({} as Item);
     const [mediaItem, setMediaItem] = useState<Item>();
+    const [isFavorite, setIsFavorite] = useState(false);
     const [showVideo] = useState<Boolean>(false);
 
     const { params } = useRouteMatch<ItemParams>();
@@ -63,6 +66,15 @@ const Detail: React.FC = () => {
     function formatData(dataString: string) {
         return new Date(dataString);
     }
+
+    const toggleFavorite = useCallback(() => {
+        if (isFavorite) {
+            api.delete(`/favorites/${movie.id}`);
+        } else {
+            api.post(`/favorites`, movie);
+        }
+        setIsFavorite(!isFavorite);
+    }, [isFavorite, movie]);
 
     return (
         <Container>
@@ -134,8 +146,7 @@ const Detail: React.FC = () => {
                                 </MoreInfo>
                             </ContentText>
                             <ContentButton>
-
-                            <button>Add to watch list</button>
+                                <button>Add to watch list</button>
                             </ContentButton>
                         </ContentCol>
                         <ContentImg>

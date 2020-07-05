@@ -9,6 +9,7 @@ import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/Profile";
 import Detail from "../pages/DetailMovie";
 import Search from "../pages/Search";
+import Favorites from '../pages/FavoriteMovie';
 
 const Routes: React.FC = () => (
     <Switch>
@@ -18,6 +19,7 @@ const Routes: React.FC = () => (
         <Route path="/detail/:type/:id+" isPrivate component={Detail} />
         <Route path="/profile" isPrivate component={Profile} />
         <Route path="/search/" isPrivate component={Search} />
+        <Route path="/favorites/" component={Favorites} />
     </Switch>
 );
 
