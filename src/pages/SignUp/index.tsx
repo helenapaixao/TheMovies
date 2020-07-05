@@ -1,102 +1,115 @@
 import React, { useCallback, useRef } from "react";
 import { Container, Content } from "./styles";
 import { FormHandles } from "@unform/core";
-import Logo from '../../assets/logo.svg'
+import Logo from "../../assets/logo.svg";
 
-import {
-  FiArrowLeft,
-  FiMail,
-  FiUser,
-  FiLock,
-  FiGift,
-} from "react-icons/fi";
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiGift } from "react-icons/fi";
 import { Form } from "@unform/web";
 import * as Yup from "yup";
 
 import { Link, useHistory } from "react-router-dom";
-import api from '../../services/api'
+import api from "../../services/api2";
 
 import getValidationErrors from "../../utils/getValidationErrors";
-import MaskInput from '../../components/MaskInput';
+import MaskInput from "../../components/MaskInput";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
-import 'firebase/auth';
+import "firebase/auth";
 
 interface SignUpFormData {
-  name: string;
-  email: string;
-  password: string;
-  date: string;
+    name: string;
+    email: string;
+    password: string;
+    date: string;
 }
 
 const SignUp: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
+    const formRef = useRef<FormHandles>(null);
 
+    const history = useHistory();
 
-  const history = useHistory();
+    const handleSubmit = useCallback(
+        async (data: SignUpFormData) => {
+            try {
+                formRef.current?.setErrors({});
+                const shema = Yup.object().shape({
+                    name: Yup.string().required("Nome obrigatório"),
+                    email: Yup.string().required("Email obrigatório").email(),
+                    password: Yup.string().min(
+                        6,
+                        "No minimo senha com 6 caracteres"
+                    ),
+                    date: Yup.string().required("Data de nascimento"),
+                });
 
-  const handleSubmit = useCallback(
-    async (data: SignUpFormData) => {
-      try {
-        formRef.current?.setErrors({});
-        const shema = Yup.object().shape({
-          name: Yup.string().required("Nome obrigatório"),
-          email: Yup.string().required("Email obrigatório").email(),
-          password: Yup.string().min(6, "No minimo senha com 6 caracteres"),
-          date: Yup.string().required("Data de nascimento"),
-        });
+                await shema.validate(data, {
+                    abortEarly: false,
+                });
 
-        await shema.validate(data, {
-          abortEarly: false,
-        });
+                await api.post("/users", data);
+                history.push("/profile");
+            } catch (err) {
+                if (err instanceof Yup.ValidationError) {
+                    const errors = getValidationErrors(err);
+                    formRef.current?.setErrors(errors);
+                    return;
+                }
+            }
+        },
+        [history]
+    );
 
-        await api.post("/users", data);
-        history.push("/profile");
-      } catch (err) {
-        if (err instanceof Yup.ValidationError) {
-          const errors = getValidationErrors(err);
-          formRef.current?.setErrors(errors);
-          return;
-        }
-      }
-    },
-    [history]
-  );
+    return (
+        <Container>
+            <Content>
+                <Form ref={formRef} onSubmit={handleSubmit}>
+                    <img src={Logo} alt="logo" />
+                    <h1>Faça seu cadastro</h1>
+                    <Input
+                        name="name"
+                        icon={FiUser}
+                        type="text"
+                        placeholder="Nome"
+                    />
+                    <Input
+                        name="email"
+                        icon={FiMail}
+                        type="email"
+                        placeholder="E-mail"
+                    />
+                    <Input
+                        name="password"
+                        icon={FiLock}
+                        type="password"
+                        placeholder="Senha"
+                    />
+                    <MaskInput
+                        name="date"
+                        icon={FiGift}
+                        mask="99/99/9999"
+                        placeholder="Data de nascimento"
+                    />
+                    <div
+                        className="fb-login-button"
+                        data-size="large"
+                        data-button-type="continue_with"
+                        data-layout="default"
+                        data-auto-logout-link="false"
+                        data-use-continue-as="false"
+                        data-width=""
+                    ></div>
 
-
-  return (
-    <Container>
-      <Content>
-        <Form ref={formRef} onSubmit={handleSubmit}>
-        <img src={Logo} alt="logo"/>
-          <h1>Faça seu cadastro</h1>
-          <Input name="name" icon={FiUser} type="text" placeholder="Nome" />
-          <Input name="email" icon={FiMail} type="email" placeholder="E-mail" />
-          <Input
-            name="password"
-            icon={FiLock}
-            type="password"
-            placeholder="Senha"
-          />
-          <MaskInput
-            name="date"
-            icon={FiGift}
-            mask="99/99/9999"
-            placeholder="Data de nascimento"
-          />
-         <div className="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
-          <Button type="submit">Cadastrar</Button>
-        
-        </Form>
-        <Link to="/">
-          <FiArrowLeft />
-          Voltar para Login
-        </Link>
-      </Content>
-    </Container>
-  );
+                    <Button type="submit">Cadastrar</Button>
+                </Form>
+                <Link to="/">
+                    <FiArrowLeft />
+                    Voltar para Login
+                </Link>
+            </Content>
+        </Container>
+    );
 };
 
 export default SignUp;
