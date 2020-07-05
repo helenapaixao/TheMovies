@@ -8,8 +8,7 @@ import Header from "../../components/Header";
 import notfound from "../../assets/notfound.svg";
 
 import api from "../../services/api";
-import {  Section} from '../../styles/shared';
-
+import { Section } from "../../styles/shared";
 
 import {
     Container,
@@ -69,14 +68,13 @@ const FavoriteMovie: React.FC = () => {
 
     return (
         <>
-            <Header/>
+            <Header />
             <Container>
-            <h1>FavoriteMovie</h1>
-   
-        <Section>
+                <h1>FavoriteMovie</h1>
 
-        </Section>
-  
+                <Section>
+                    
+                </Section>
             </Container>
         </>
     );

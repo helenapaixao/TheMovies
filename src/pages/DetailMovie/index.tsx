@@ -1,12 +1,14 @@
-import React, { useState, useEffect,useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import { API_BASE_IMAGE_URL, getDetail } from "../../services/client";
 import { useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/Header";
-
+import { Link } from "react-router-dom";
 import notfound from "../../assets/notfound.svg";
-import api from '../../services/api'
+import api from "../../services/api";
+
+import { FiHeart } from "react-icons/fi";
 
 import {
     Container,
@@ -75,6 +77,11 @@ const Detail: React.FC = () => {
         }
         setIsFavorite(!isFavorite);
     }, [isFavorite, movie]);
+
+    const favoriteIconName = useMemo(
+        () => (isFavorite ? "favorite" : "favorite-border"),
+        [isFavorite]
+    );
 
     return (
         <Container>
@@ -146,6 +153,10 @@ const Detail: React.FC = () => {
                                 </MoreInfo>
                             </ContentText>
                             <ContentButton>
+                                <Link to="/favorites">
+                                    <FiHeart />
+                                    Add 
+                                </Link>
                                 <button>Add to watch list</button>
                             </ContentButton>
                         </ContentCol>
