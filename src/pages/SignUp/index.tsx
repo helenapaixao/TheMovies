@@ -22,6 +22,8 @@ import MaskInput from '../../components/MaskInput';
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 
+import 'firebase/auth';
+
 interface SignUpFormData {
   name: string;
   email: string;
@@ -31,6 +33,7 @@ interface SignUpFormData {
 
 const SignUp: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
+
 
   const history = useHistory();
 
@@ -50,7 +53,7 @@ const SignUp: React.FC = () => {
         });
 
         await api.post("/users", data);
-        history.push("/");
+        history.push("/profile");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -61,6 +64,7 @@ const SignUp: React.FC = () => {
     },
     [history]
   );
+
 
   return (
     <Container>
@@ -82,7 +86,9 @@ const SignUp: React.FC = () => {
             mask="99/99/9999"
             placeholder="Data de nascimento"
           />
+         <div className="fb-login-button" data-size="large" data-button-type="continue_with" data-layout="default" data-auto-logout-link="false" data-use-continue-as="false" data-width=""></div>
           <Button type="submit">Cadastrar</Button>
+        
         </Form>
         <Link to="/">
           <FiArrowLeft />
