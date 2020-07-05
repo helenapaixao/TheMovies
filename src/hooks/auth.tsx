@@ -1,71 +1,82 @@
-import React, { createContext, useCallback, useState, useContext } from "react";
-import api from '../services/api2'
+import React, { createContext, useCallback, useState, useContext } from 'react';
+import api from '../services/api2';
+
+
+
+interface User {
+    id: number;
+    name: string;
+    email: string;
+    password: string;
+    date:string
+}
+
 
 interface AuthState {
-  token: string;
-  user: object;
+    id: string;
+    name: string;
 }
 
 interface signInCredentials {
-  email: string;
-  password: string;
+    email: string;
+    password: string;
 }
 
 interface AuthContextData {
-  user: object;
-  signIn(credentials: signInCredentials): Promise<void>;
-  signOut(): void;
+    id: string;
+    signIn(credentials: signInCredentials): Promise<void>;
+    signOut(): void;
 }
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem("@TheMovie:token");
-    const user = localStorage.getItem("@TheMovie:user");
+    const [data, setData] = useState<AuthState>(() => {
+        const id = localStorage.getItem('@TheMovie:token');
+        const name = localStorage.getItem('@TheMovie:user');
 
-    if (token && user) {
-      return { token, user: JSON.parse(user) };
-    }
+        if (id && name) {
+            return { id, name };
+        }
 
-    return {} as AuthState;
-  });
-
-  const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post("sessions", {
-      email,
-      password,
+        return {} as AuthState;
     });
 
-    const { token, user } = response.data;
+    const signIn = useCallback(async ({ email, password }) => {
+        const response = await api.post('sessions', {
+            email,
+            password,
+        });
 
-    localStorage.setItem("@Themovie:token", token);
-    localStorage.setItem("@Themovie:user", JSON.stringify(user));
+        const { id, name } = response.data;
 
-    setData({ token, user });
-  }, []);
+        localStorage.setItem('@TheMovie:token', id);
+        localStorage.setItem('@TheMovie:user', name);
 
-  const signOut = useCallback(() => {
-    localStorage.removeItem("@Themovie:token");
-    localStorage.removeItem("@Themovie:user");
+        setData({ id, name });
+    }, []);
 
-    setData({} as AuthState);
-  }, []);
+    const signOut = useCallback(() => {
+        localStorage.removeItem('@TheMovie:token');
+        localStorage.removeItem('@TheMovie:user');
 
-  return (
-    <AuthContext.Provider value={{ user: data.user, signIn, signOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
+        setData({} as AuthState);
+    }, []);
+
+    return (
+        <AuthContext.Provider value={{ id: data.id, signIn, signOut }}>
+            {children}
+        </AuthContext.Provider>
+    );
 };
 
 function useAuth(): AuthContextData {
-  const context = useContext(AuthContext);
+    const context = useContext(AuthContext);
 
-  if (!context) {
-    throw new Error("useAuth must be used within a AuthProvider");
-  }
-  return context;
+    if (!context) {
+        throw new Error('useAuth must be used within a AuthProvider');
+    }
+    return context;
 }
 
 export { AuthProvider, useAuth };

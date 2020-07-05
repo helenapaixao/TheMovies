@@ -43,7 +43,7 @@ const SignIn: React.FC = () => {
                     email: data.email,
                     password: data.password,
                 });
-                history.push("/profile");
+                history.push("/dashboard");
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {
                     const errors = getValidationErrors(err);
@@ -68,15 +68,6 @@ const SignIn: React.FC = () => {
                         type="password"
                         placeholder="Senha"
                     />
-                    <div
-                        className="fb-login-button"
-                        data-size="large"
-                        data-button-type="continue_with"
-                        data-layout="default"
-                        data-auto-logout-link="false"
-                        data-use-continue-as="false"
-                        data-width=""
-                    ></div>
                     <Button type="submit">Entrar</Button>
                 </Form>
                 <Link to="/signup">
