@@ -3,6 +3,7 @@ import { Container, Content, Image } from "./styles";
 import Logo from "../../assets/logo.svg";
 
 import { FormHandles } from "@unform/core";
+import FacebookLogin from "react-facebook-login";
 import { FiLogIn, FiMail, FiLock } from "react-icons/fi";
 import { Form } from "@unform/web";
 import * as Yup from "yup";
@@ -43,7 +44,7 @@ const SignIn: React.FC = () => {
                     email: data.email,
                     password: data.password,
                 });
-                history.push("/dashboard");
+                history.push("/profile");
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {
                     const errors = getValidationErrors(err);
@@ -55,6 +56,11 @@ const SignIn: React.FC = () => {
         [signIn, history]
     );
 
+    const componentClicked = () => console.log("clicked");
+
+    const responseFacebook = useCallback(() => {
+        history.push("/profile");
+    }, []);
     return (
         <Container>
             <Content>
@@ -69,11 +75,19 @@ const SignIn: React.FC = () => {
                         placeholder="Senha"
                     />
                     <Button type="submit">Entrar</Button>
+                    <FacebookLogin
+                    appId="1445553365628155"
+                    autoLoad={true}
+                    fields="name,email,picture"
+                    onClick={componentClicked}
+                    callback={responseFacebook}
+                />
                 </Form>
                 <Link to="/signup">
                     <FiLogIn />
                     Criar Conta
                 </Link>
+           
             </Content>
             <Image />
         </Container>

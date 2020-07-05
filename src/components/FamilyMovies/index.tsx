@@ -21,7 +21,7 @@ const Family: React.FC = () => {
     <>
       {family && (
         <Section>
-          <h1>Family</h1>
+          <h1>Filme para assisitir com a familia</h1>
           <MediaCarousel items={family} />
         </Section>
       )}

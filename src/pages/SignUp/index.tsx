@@ -91,16 +91,8 @@ const SignUp: React.FC = () => {
                         mask="99/99/9999"
                         placeholder="Data de nascimento"
                     />
-                    <div
-                        className="fb-login-button"
-                        data-size="large"
-                        data-button-type="continue_with"
-                        data-layout="default"
-                        data-auto-logout-link="false"
-                        data-use-continue-as="false"
-                        data-width=""
-                    ></div>
-
+                  
+                
                     <Button type="submit">Cadastrar</Button>
                 </Form>
                 <Link to="/">
@@ -108,6 +100,7 @@ const SignUp: React.FC = () => {
                     Voltar para Login
                 </Link>
             </Content>
+            
         </Container>
     );
 };

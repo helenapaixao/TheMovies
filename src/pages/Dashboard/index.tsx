@@ -6,7 +6,6 @@ import ListMovies from "../../components/ListMovies";
 import FamilyMovies from "../../components/FamilyMovies";
 import Documentary from "../../components/DocumentaryMovies";
 
-
 const Dashboard: React.FC = () => {
     return (
         <>

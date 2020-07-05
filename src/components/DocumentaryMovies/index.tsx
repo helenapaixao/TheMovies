@@ -23,7 +23,7 @@ const Documentary: React.FC = () => {
     <>
       {documentaries && (
         <Section>
-          <h1>Documentary</h1>
+          <h1>Documentários</h1>
           <MediaCarousel items={documentaries} />
         </Section>
       )}

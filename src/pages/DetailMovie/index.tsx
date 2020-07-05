@@ -109,27 +109,27 @@ const Detail: React.FC = () => {
                                 <About>{mediaItem.overview}</About>
                                 <MoreInfo>
                                     <h3>
-                                        <strong>About</strong>{" "}
+                                        <strong>Sobre</strong>{" "}
                                         {mediaItem.name || mediaItem.title}
                                     </h3>
                                     <ul>
                                         <li>
-                                            <strong>Original title:</strong>
+                                            <strong>Titulo do Filme:</strong>
                                             {mediaItem.original_name ||
                                                 mediaItem.title}
                                         </li>
                                         <li>
-                                            <strong>Original language:</strong>
+                                            <strong>Linguagem Original:</strong>
                                             {mediaItem.original_language ||
                                                 "Nothing found"}
                                         </li>
                                         <li>
-                                            <strong>Origin country:</strong>
+                                            <strong>País de origem:</strong>
                                             {mediaItem.origin_country ||
                                                 "Nothing found"}
                                         </li>
                                         <li>
-                                            <strong>Popularity:</strong>
+                                            <strong>Popularidade:</strong>
                                             {mediaItem.popularity ||
                                                 "Nothing found"}
                                         </li>

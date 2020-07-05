@@ -26,7 +26,7 @@ const PopularMovies: React.FC = () => {
     <>
       {movies && (
         <Section>
-          <h1>Popular Movies</h1>
+          <h1>Filmes Populares</h1>
           <MediaCarousel items={movies} />
         </Section>
       )}
