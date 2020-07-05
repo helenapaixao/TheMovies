@@ -8,7 +8,6 @@ export const Container = styled.div<MovieData>`
   background: #f0f0f5;
   border-radius: 8px;
   header {
-    background: #ffb84d;
     border-radius: 8px 8px 0px 0px;
     height: 192px;
     overflow: hidden;
@@ -32,15 +31,6 @@ export const Container = styled.div<MovieData>`
     p {
       color: #3d3d4d;
       margin-top: 16px;
-    }
-    .price {
-      font-style: normal;
-      font-size: 24px;
-      line-height: 34px;
-      color: #39b100;
-      b {
-        font-weight: 600;
-      }
     }
   }
   section.footer {

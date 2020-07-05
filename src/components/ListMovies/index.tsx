@@ -10,7 +10,6 @@ const PopularSeries: React.FC = () => {
   const [series, setSeries] = useState<Item[]>([]);
 
   useEffect(() => {
-    //It get popularTv from Api endpoint(services/api.ts)
     async function loadPopularSeries() {
       const popularSeries = await getPopularSeries();
       setSeries(
