@@ -100,6 +100,7 @@ export const ContentButton = styled.div`
   padding: 3rem 0;
 
   button {
+      margin-top:20px;
     width: 223px;
     height: 40px;
   background-color:#FFB20F; 
@@ -107,14 +108,19 @@ export const ContentButton = styled.div`
   }
 
   a {
+      margin-left:20px;
       color: #f4ede8;
       display: block;
       margin-top: 24px;
       text-decoration: none;
       transition: color 0.2s;
       &:hover {
-        color: ${shade(0.2, "#F4EDE8")};
+        color: ${shade(0.2, "#FFB20F")};
       }
+    }
+
+    svg {
+        margin-right:20px;
     }
 `;
 

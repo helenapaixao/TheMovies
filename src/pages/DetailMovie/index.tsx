@@ -160,7 +160,7 @@ const Detail: React.FC = () => {
                                     Filme favorito
                                 </Link>
 
-                                <button>Assisitir depois</button>
+                                <button>Assistir depois</button>
                             </ContentButton>
                         </ContentCol>
                         <ContentImg>

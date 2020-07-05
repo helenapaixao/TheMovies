@@ -8,7 +8,9 @@ import Header from "../../components/Header";
 import notfound from "../../assets/notfound.svg";
 
 import api from "../../services/api2";
+import Movie from "../../components/Movie";
 import { Section } from "../../styles/shared";
+import MediaCarousel from '../../components/Moviecarousel'
 
 import {
     Container,
@@ -50,6 +52,7 @@ interface Item {
 
 const FavoriteMovie: React.FC = () => {
     const [favorites, setFavorites] = useState<Item[]>([]);
+    const [movies, setMovies] = useState<Item[]>([]);
 
     useEffect(() => {
         async function loadFavorites(): Promise<void> {
@@ -66,15 +69,41 @@ const FavoriteMovie: React.FC = () => {
         loadFavorites();
     }, []);
 
+    useEffect(() => {
+        async function loadMovies(): Promise<void> {
+            const response = await api.get("/movies");
+
+            setMovies(response.data);
+        }
+
+        loadMovies();
+    }, []);
+
+    async function handleAddMovie(
+        movie: Omit<Item, "id" | "available">
+    ): Promise<void> {
+        try {
+            const response = await api.post(`/movies`, {
+                ...movie,
+                available: true,
+            });
+
+            setMovies([...movies, response.data]);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
         <>
             <Header />
             <Container>
                 <h1>FavoriteMovie</h1>
 
-                <Section>
-
-                </Section>
+                {movies &&
+                    movies.map((movie) => (
+                        <MediaCarousel items={movies} />
+                    ))}
             </Container>
         </>
     );

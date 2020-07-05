@@ -22,9 +22,15 @@ interface signInCredentials {
     password: string;
 }
 
+interface signInCredentialsFacebook {
+    email: string;
+    password: string;
+}
+
 interface AuthContextData {
     id: string;
     signIn(credentials: signInCredentials): Promise<void>;
+    signIn(credentials: signInCredentialsFacebook): Promise<void>;
     signOut(): void;
 }
 
