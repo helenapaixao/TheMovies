@@ -7,7 +7,7 @@ import Header from "../../components/Header";
 
 import notfound from "../../assets/notfound.svg";
 
-import api from "../../services/api";
+import api from "../../services/api2";
 import { Section } from "../../styles/shared";
 
 import {
@@ -73,7 +73,7 @@ const FavoriteMovie: React.FC = () => {
                 <h1>FavoriteMovie</h1>
 
                 <Section>
-                    
+
                 </Section>
             </Container>
         </>

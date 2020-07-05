@@ -4,9 +4,11 @@ import { API_BASE_IMAGE_URL, getDetail } from "../../services/client";
 import { useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/Header";
+import Button from "../../components/Button";
+
 import { Link } from "react-router-dom";
 import notfound from "../../assets/notfound.svg";
-import api from "../../services/api";
+import api from '../../services/api2';
 
 import { FiHeart } from "react-icons/fi";
 
@@ -155,9 +157,10 @@ const Detail: React.FC = () => {
                             <ContentButton>
                                 <Link to="/favorites">
                                     <FiHeart />
-                                    Add 
+                                    Filme favorito
                                 </Link>
-                                <button>Add to watch list</button>
+
+                                <button>Assisitir depois</button>
                             </ContentButton>
                         </ContentCol>
                         <ContentImg>

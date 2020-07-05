@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { shade } from "polished";
 
 export const Container = styled.div`
   height: 100%;
@@ -104,6 +105,17 @@ export const ContentButton = styled.div`
   background-color:#FFB20F; 
     color: #28262e;
   }
+
+  a {
+      color: #f4ede8;
+      display: block;
+      margin-top: 24px;
+      text-decoration: none;
+      transition: color 0.2s;
+      &:hover {
+        color: ${shade(0.2, "#F4EDE8")};
+      }
+    }
 `;
 
 export const ContentImg = styled.div`
