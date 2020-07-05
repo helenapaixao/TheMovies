@@ -1,6 +1,17 @@
 import React, { useState, FormEvent } from "react";
 import { getResults } from "../../services/client";
 
+import { Section } from "../../styles/shared";
+import { Container, Content, Form, Error } from "./styles";
+
+import Header from "../../components/Header";
+import MediaCarousel from "../../components/Moviecarousel";
+import logo from "../../assets/logo.svg";
+
+import Button from "../../components/Button";
+import Input from "../../components/Input";
+import SearchInput from "../../components/SearchInput";
+
 export interface IResult {
     poster_path: string | null;
     overview: string;
@@ -30,7 +41,6 @@ const Search: React.FC = () => {
     ): Promise<void> {
         event.preventDefault();
 
-        //error handling
         if (!query) {
             setInputError("To be continue, you need add a Search.");
             return;
@@ -52,7 +62,35 @@ const Search: React.FC = () => {
         }
     }
 
-    return <h1>Search</h1>;
+    return (
+        <>
+            <Container>
+                <Header />
+                <Content>
+                    <img src={logo} alt="logo" />
+
+                    <Form onSubmit={handleSearch}>
+                        <SearchInput
+                            name="text"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
+                            placeholder="Digite o nome do Filme"
+                        />
+                        <Button type="submit">Buscar Filme</Button>
+                    </Form>
+                </Content>
+
+                {inputError && <Error>{inputError}</Error>}
+
+                {result.length > 0 && (
+                    <Section>
+                        <h1>Results for: {lastQuery}</h1>
+                        <MediaCarousel items={result} />
+                    </Section>
+                )}
+            </Container>
+        </>
+    );
 };
 
 export default Search;
