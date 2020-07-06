@@ -1,103 +1,116 @@
-import React,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { Container, Content, ProfileContainer } from "./styles";
 
-import { FiPlus } from "react-icons/fi";
-import api from '../../services/api2';
+import Profile from "../../components/Profile";
+import api from "../../services/api2";
+import ModalEditProfile from "../../components/ModalEditProfile";
+import ModalAddProfile from "../../components/ModalAddProfile";
+import Header from "../../components/Header";
+import { Link } from "react-router-dom";
 
-
-
-
-import {
-    Container,
-    Header,
-    Content,
-    Title,
-    AllProfiles,
-    CardProfile,
-    CardAvatar,
-    CardText,
-    Button,
-    AddProfile,
-} from "./styles";
-import { useRouteMatch, Link } from "react-router-dom";
-
-
-interface UserData {
-    name:string;
-    avatar:string;
-
+interface IProfiledata {
+    id: number;
+    name: string;
+    avatar: string;
+    movieGenre: string;
 }
 
-interface UserParams {
-    id:string;
-    name:string;
-    email:string;
-}
+const Dashboard: React.FC = () => {
+    const [profiles, setProfiles] = useState<IProfiledata[]>([]);
+    const [editingProfile, setEditingProfile] = useState<IProfiledata>(
+        {} as IProfiledata
+    );
+    const [modalOpen, setModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
 
-const Profiles: React.FC = () => {
-    const[user,setUsers] = useState<UserData[]>([]);
-  
-    const {params} = useRouteMatch<UserParams>();
+    useEffect(() => {
+        async function loadProfiles(): Promise<void> {
+            api.get("/profile").then((response) => {
+                setProfiles(response.data);
+            });
+        }
 
-useEffect(() => {
+        loadProfiles();
+    }, []);
 
-    api.get('users').then((response) => {
+    async function handleAddProfile(
+        profile: Omit<IProfiledata, "id">
+    ): Promise<void> {
+        try {
+            const responseAdd = await api.post<IProfiledata>("/profile", {
+                ...profiles,
+            });
+            setProfiles([...profiles, responseAdd.data]);
+        } catch (err) {
+            console.log(err);
+        }
+    }
 
-        console.log(response.data);
-        //setUsers(response.data);
-        
-    })
-}
+    async function handleUpdateProfile(
+        profile: Omit<IProfiledata, "id">
+    ): Promise<void> {
+        const { id } = editingProfile;
+        const responseEdit = await api.put<IProfiledata>(`/profile/${id}`, {
+            ...profile,
+            id,
+        });
+        const newProfiles = [...profiles];
+        const indexProfile = newProfiles.findIndex((w) => w.id === id);
+        newProfiles[indexProfile] = responseEdit.data;
+        setProfiles([...newProfiles]);
+    }
 
-,[])
+    async function handleDeleteProfile(id: number): Promise<void> {
+        await api.delete(`/profile/${id}`);
+        const newProfiles = [...profiles];
+        const indexDeleted = newProfiles.findIndex((w) => w.id === id);
+        newProfiles.splice(indexDeleted, 1);
+        setProfiles([...newProfiles]);
+    }
 
+    function toggleModal(): void {
+        setModalOpen(!modalOpen);
+    }
+
+    function toggleEditModal(): void {
+        setEditModalOpen(!editModalOpen);
+    }
+
+    function handleEditProfile(profile: IProfiledata): void {
+        setEditingProfile(profile);
+        toggleEditModal();
+    }
 
     return (
         <Container>
-            <Header></Header>
+            <ModalAddProfile
+                isOpen={modalOpen}
+                setIsOpen={toggleModal}
+                handleAddProfile={handleAddProfile}
+            />
 
+            <ModalEditProfile
+                isOpen={editModalOpen}
+                setIsOpen={toggleEditModal}
+                editingProfile={editingProfile}
+                handleUpdateProfile={handleUpdateProfile}
+            />
             <Content>
-                <Title>Escolha um perfil</Title>
-
-                <AllProfiles>
-                    <CardProfile>
-                        <CardAvatar>
-                            <Link key="principal/users" to="/dashboard">
-                            <img
-                                src="https://avatars3.githubusercontent.com/u/11083288?s=460&u=195f820bdb85e57d7e08038a3f8eec821421d83d&v=4"
-                                alt="principal/users"
-                            />
+                <ProfileContainer>
+                    {profiles &&
+                        profiles.map((profile) => (
+                            <Link to="/dashboard">
+                                <Profile
+                                    key={profile.id}
+                                    profile={profile}
+                                    handleDelete={handleDeleteProfile}
+                                    handleEditProfile={handleEditProfile}
+                                />
                             </Link>
-                      
-                        </CardAvatar>
-                        <CardText>Helena Paixão</CardText>
-                    </CardProfile>
-
-                    <CardProfile>
-                        <CardAvatar>
-                            <img src="https://occ-0-2809-1380.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABUOVXiUYacjlBLwNjhXI7yzjuheEv4j03647J1rGAtRjLkqadP2bMyykXIzsZ04QZnHJS0md3nlMNNj0HIMbQNKYr7RE.png?r=071" />
-                        </CardAvatar>
-                        <CardText>Karina</CardText>
-                    </CardProfile>
-
-                    <CardProfile>
-                        <CardAvatar>
-                            <img src="https://occ-0-2809-1380.1.nflxso.net/dnm/api/v6/Z-WHgqd_TeJxSuha8aZ5WpyLcX8/AAAABYCq-HPaBmwWzyEo8UjC3jQ7a2mKJhU4uPbQwFrauKbu9_-6GpfPccnQh3UWZvsGLQ1MwLo_4YZ-kuTiAsqpq0oEdPXS.png?r=f71" />
-                        </CardAvatar>
-                        <CardText>Convidado</CardText>
-                    </CardProfile>
-
-                    <CardProfile>
-                        <AddProfile>
-                            <FiPlus className="icon" color="grey" size={150} />
-                        </AddProfile>
-                        <CardText>Novo perfil</CardText>
-                    </CardProfile>
-                </AllProfiles>
-
-                <Button>GERENCIAR PERFIS</Button>
+                        ))}
+                </ProfileContainer>
             </Content>
         </Container>
     );
 };
-
-export default Profiles;
+export default Dashboard;

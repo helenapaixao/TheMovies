@@ -2,27 +2,6 @@ import React, { useState, useEffect } from "react";
 
 import ReactModal from "react-modal";
 
-interface Item {
-    poster_path: string | null;
-    overview: string;
-    original_title: string;
-    original_language: string;
-    original_name: string;
-    origin_country: string;
-    title: string;
-    popularity: number;
-    vote_count: number;
-    vote_avanger: number;
-    first_air_date: string;
-    last_episode_to_air: string;
-    next_episode_to_air: string;
-    release_date: string;
-    name: string;
-    available: boolean;
-    backdrop_path: string;
-    status: string;
-    id: number;
-}
 
 interface IModalProps {
     children: any;

@@ -9,13 +9,13 @@ import Input from "../Input";
 interface IProfile {
     id: number;
     name: string;
-    image: string;
+    avatar: string;
     movieGenre: string;
 }
 
 interface ICreateProfileData {
     name: string;
-    image: string;
+    avatar: string;
     movieGenre: string;
 }
 
@@ -25,7 +25,11 @@ interface IModalProps {
     handleAddProfile: (profile: Omit<IProfile, "id" | "available">) => void;
 }
 
-const ModalAddProfile: React.FC<IModalProps> = ({ isOpen, setIsOpen, handleAddProfile }) => {
+const ModalAddProfile: React.FC<IModalProps> = ({
+    isOpen,
+    setIsOpen,
+    handleAddProfile,
+}) => {
     const formRef = useRef<FormHandles>(null);
 
     const handleSubmit = useCallback(
@@ -41,7 +45,7 @@ const ModalAddProfile: React.FC<IModalProps> = ({ isOpen, setIsOpen, handleAddPr
             <Form ref={formRef} onSubmit={handleSubmit}>
                 <h1>Novo Perfil</h1>
                 <Input
-                    name="image"
+                    name="avatar"
                     placeholder="Cole o link aqui da sua melhor foto"
                 />
 

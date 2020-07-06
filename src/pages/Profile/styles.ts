@@ -119,3 +119,18 @@ export const AddProfile = styled.div`
     border-color: white;
   }
 `;
+
+
+export const ProfileContainer = styled.div`
+    width: 0 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 40px 20px 40px 20px;
+    margin-top: -100px;
+    text-decoration:none;
+    grid-gap: 32px;
+    object-fit: cover;
+    display:flex;
+
+ 
+`;

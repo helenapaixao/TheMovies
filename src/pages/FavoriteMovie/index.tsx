@@ -1,34 +1,18 @@
 import React, { useState, useEffect } from "react";
 
-import { API_BASE_IMAGE_URL, getDetail } from "../../services/client";
-import { useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/Header";
 
-import notfound from "../../assets/notfound.svg";
+
 
 import api from "../../services/api2";
-import Movie from "../../components/Movie";
-import { Section } from "../../styles/shared";
+
 import MediaCarousel from '../../components/Moviecarousel'
 
 import {
     Container,
-    Box,
-    ContentAll,
-    ContentCol,
-    ContentText,
-    About,
-    ContentButton,
-    ContentImg,
-    MoreInfo,
-    Title,
 } from "./styles";
 
-interface ItemParams {
-    type: string;
-    id: string;
-}
 
 interface Item {
     poster_path: string | null;
