@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from "react";
+import React, { useRef, useCallback, useState } from "react";
 import { Container, Content, Image } from "./styles";
 import Logo from "../../assets/logo.svg";
 
@@ -20,9 +20,21 @@ interface SignInFormData {
     password: string;
 }
 
+interface SignInFormDataFacebook {
+    email: string;
+    name: string;
+    picture: string;
+    accessToken: string;
+}
+
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const { signIn } = useAuth();
+    const [userID, setuserID] = useState("");
+    const [email, setEmail] = useState("");
+    const [login, setLogin] = useState(false);
+    const [data, setData] = useState({});
+    const [picture, setPicture] = useState("");
 
     const history = useHistory();
 
@@ -56,11 +68,12 @@ const SignIn: React.FC = () => {
         [signIn, history]
     );
 
-    const componentClicked = () => console.log("clicked");
+    const responseFacebook = useCallback((response) => {
+        console.log(response.data);
 
-    const responseFacebook = useCallback(() => {
         history.push("/profile");
-    }, []);
+    }, [history]);
+
     return (
         <Container>
             <Content>
@@ -76,18 +89,16 @@ const SignIn: React.FC = () => {
                     />
                     <Button type="submit">Entrar</Button>
                     <FacebookLogin
-                    appId="1445553365628155"
-                    autoLoad={true}
-                    fields="name,email,picture"
-                    onClick={componentClicked}
-                    callback={responseFacebook}
-                />
+                        appId="1445553365628155"
+                        autoLoad={true}
+                        fields="name,email,picture"
+                        callback={responseFacebook}
+                    />
                 </Form>
                 <Link to="/signup">
                     <FiLogIn />
                     Criar Conta
                 </Link>
-           
             </Content>
             <Image />
         </Container>
