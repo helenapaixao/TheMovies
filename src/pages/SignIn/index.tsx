@@ -21,20 +21,23 @@ interface SignInFormData {
 }
 
 interface SignInFormDataFacebook {
-    email: string;
-    name: string;
-    picture: string;
+    id: string;
     accessToken: string;
+    name: string;
+    email: string;
+    picture?: {
+        data: {
+            height?: number;
+            is_silhouette?: boolean;
+            url?: string;
+            width?: number;
+        };
+    };
 }
 
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
-    const { signIn } = useAuth();
-    const [userID, setuserID] = useState("");
-    const [email, setEmail] = useState("");
-    const [login, setLogin] = useState(false);
-    const [data, setData] = useState({});
-    const [picture, setPicture] = useState("");
+    const { signIn, signInFacebook } = useAuth();
 
     const history = useHistory();
 
@@ -68,11 +71,21 @@ const SignIn: React.FC = () => {
         [signIn, history]
     );
 
-    const responseFacebook = useCallback((response) => {
-        console.log(response.data);
-
-        history.push("/profile");
-    }, [history]);
+    const responseFacebook = useCallback(
+        async (userInfo: SignInFormDataFacebook) => {
+            try {
+                await signInFacebook({
+                    id: userInfo.id,
+                    email: userInfo.email,
+                    name: userInfo.name,
+                });
+                history.push("/profile");
+            } catch (err) {
+                console.log(err);
+            }
+        },
+        [signInFacebook, history]
+    );
 
     return (
         <Container>

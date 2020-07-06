@@ -25,13 +25,14 @@ interface signInCredentials {
 
 interface signInCredentialsFacebook {
     email: string;
-    password: string;
+    id: string;
+    name:string;
 }
 
 interface AuthContextData {
     id: string;
     signIn(credentials: signInCredentials): Promise<void>;
-    signIn(credentials: signInCredentialsFacebook): Promise<void>;
+    signInFacebook(credentials: signInCredentialsFacebook): Promise<void>;
     signOut(): void;
 }
 
@@ -63,6 +64,23 @@ const AuthProvider: React.FC = ({ children }) => {
         setData({ id, name });
     }, []);
 
+    const signInFacebook = useCallback(async ({ email, name }) => {
+        const response = await api.post('sessions', {
+            email,
+            name,
+        });
+
+        const { id } = response.data;
+
+        localStorage.setItem('@TheMovie:token', id);
+        localStorage.setItem('@TheMovie:user', name);
+
+        setData({ id, name });
+    }, []);
+
+
+
+
     const signOut = useCallback(() => {
         localStorage.removeItem('@TheMovie:token');
         localStorage.removeItem('@TheMovie:user');
@@ -71,7 +89,7 @@ const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ id: data.id, signIn, signOut }}>
+        <AuthContext.Provider value={{ id: data.id, signIn, signOut,signInFacebook }}>
             {children}
         </AuthContext.Provider>
     );
