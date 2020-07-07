@@ -4,13 +4,16 @@ import Logo from "../../assets/logo.svg";
 
 import { FormHandles } from "@unform/core";
 import FacebookLogin from "react-facebook-login";
+
 import { FiLogIn, FiMail, FiLock } from "react-icons/fi";
 import { Form } from "@unform/web";
 import * as Yup from "yup";
 import { Link, useHistory } from "react-router-dom";
 
 import getValidationErrors from "../../utils/getValidationErrors";
+
 import { useAuth } from "../../hooks/auth";
+import { useToast } from "../../hooks/toast";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -38,6 +41,7 @@ interface SignInFormDataFacebook {
 const SignIn: React.FC = () => {
     const formRef = useRef<FormHandles>(null);
     const { signIn, signInFacebook } = useAuth();
+    const { addToast } = useToast();
 
     const history = useHistory();
 
@@ -60,6 +64,12 @@ const SignIn: React.FC = () => {
                     password: data.password,
                 });
                 history.push("/profile");
+
+                addToast({
+                    type: "success",
+                    title: "Login realizado! 🚀",
+                    description: "Bem vindo ao The Movie!!",
+                });
             } catch (err) {
                 if (err instanceof Yup.ValidationError) {
                     const errors = getValidationErrors(err);
@@ -68,7 +78,7 @@ const SignIn: React.FC = () => {
                 }
             }
         },
-        [signIn, history]
+        [signIn, addToast, history]
     );
 
     const responseFacebook = useCallback(
@@ -80,11 +90,16 @@ const SignIn: React.FC = () => {
                     name: userInfo.name,
                 });
                 history.push("/profile");
+                addToast({
+                    type: "success",
+                    title: "Login realizado! 🚀",
+                    description: "Bem vindo ao The Movie!!",
+                });
             } catch (err) {
                 console.log(err);
             }
         },
-        [signInFacebook, history]
+        [signInFacebook, addToast, history]
     );
 
     return (
