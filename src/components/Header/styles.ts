@@ -67,3 +67,12 @@ export const Profile = styled.div`
     display: flex;
   }
 `;
+
+
+export const Divider = styled.div`
+ display: flex;
+
+    margin-left: 20px;
+   
+
+` ;

@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import { API_BASE_IMAGE_URL, getDetail } from "../../services/client";
 import { useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/Header";
+import Button from '../../components/Button';
 
 import { useFavorites } from "../../hooks/favourites";
 
@@ -154,12 +155,12 @@ const Detail: React.FC = () => {
                                 </MoreInfo>
                             </ContentText>
                             <ContentButton>
-                                <button
+                                <Button
                                     type="button"
                                     onClick={handleToggleFavorite(mediaItem)}
                                 >
                                     Adicionar aos favoritos
-                                </button>
+                                </Button>
                                 <button>Assistir depois</button>
                             </ContentButton>
                         </ContentCol>
