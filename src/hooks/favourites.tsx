@@ -5,7 +5,7 @@ interface Genre {
 	name: string;
 }
 
-export interface Media {
+export interface MediaData {
 	id: number;
 	unique_id: string;
 	type: 'movie' | 'tv';
@@ -16,29 +16,30 @@ export interface Media {
 }
 
 interface FavoritesContextData {
-	toggleFavorite(media: Media): void;
-	isFavorite(media: Media): boolean;
-	favorites: Media[];
+	toggleFavorite(media: MediaData): void;
+	isFavorite(media: MediaData): boolean;
+	favorites: MediaData[];
 }
 
 const FavoritesContext = createContext<FavoritesContextData>({} as FavoritesContextData);
 
 const FavoritesProvider: React.FC = ({ children }) => {
-	const [favorites, setFavorites] = useState<Media[]>(() => {
+    
+	const [favorites, setFavorites] = useState<MediaData[]>(() => {
 		const favs = localStorage.getItem('@TheMovies:favorites');
 		return favs ? JSON.parse(favs) : [];
 	});
 
 	const isFavorite = useCallback(
-		(media: Media) => {
+		(media: MediaData) => {
 			return favorites.some(fav => fav.unique_id === media.unique_id);
 		},
 		[favorites],
 	);
 
 	const toggleFavorite = useCallback(
-		(media: Media) => {
-			let updatedFavorites: Media[] = [...favorites];
+		(media: MediaData) => {
+			let updatedFavorites: MediaData[] = [...favorites];
 
 			if (isFavorite(media)) {
 				updatedFavorites = favorites.filter(fav => fav.unique_id !== media.unique_id);
@@ -47,7 +48,7 @@ const FavoritesProvider: React.FC = ({ children }) => {
 			}
 
 			setFavorites(updatedFavorites);
-			localStorage.setItem('@ProjectNetflix:favorites', JSON.stringify(updatedFavorites));
+			localStorage.setItem('@TheMovies:favorites', JSON.stringify(updatedFavorites));
 		},
 		[favorites, isFavorite],
 	);

@@ -5,8 +5,6 @@ import Profile from "../../components/Profile";
 import api from "../../services/api2";
 import ModalEditProfile from "../../components/ModalEditProfile";
 import ModalAddProfile from "../../components/ModalAddProfile";
-import Header from "../../components/Header";
-import { Link } from "react-router-dom";
 
 interface IProfiledata {
     id: number;

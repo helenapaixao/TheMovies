@@ -6,8 +6,12 @@ import 'react-multi-carousel/lib/styles.css';
 import Media from '../Media';
 import { Container } from './styles';
 
+
+
 interface IMediaCarousel {
   items: any[];
+
+ 
 }
 
 const MediaCarousel: React.FC<IMediaCarousel> = ({ items }) => {
@@ -40,7 +44,7 @@ const MediaCarousel: React.FC<IMediaCarousel> = ({ items }) => {
       >
         {items.map((item) => (
           <div key={item.id}>
-            <Media item={item} type={item.media_type} />
+            <Media   item={item} type={item.media_type} />
           </div>
         ))}
       </Carousel>

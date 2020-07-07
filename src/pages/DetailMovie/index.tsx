@@ -4,15 +4,12 @@ import { API_BASE_IMAGE_URL, getDetail } from "../../services/client";
 import { useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/Header";
-import Button from "../../components/Button";
-import { Media, useFavorites } from "../../hooks/favourites";
 
-import { Link } from "react-router-dom";
+import { useFavorites } from "../../hooks/favourites";
+
 import notfound from "../../assets/notfound.svg";
-import api from "../../services/api2";
-import Item from "../../components/Media";
 
-import { FiHeart, FiPlusCircle, FiCheckCircle } from "react-icons/fi";
+import Item from "../../components/Media";
 
 import {
     Container,
@@ -32,8 +29,13 @@ interface ItemParams {
     id: string;
 }
 
+interface Genre {
+    id: number;
+    name: string;
+}
+
 interface Item {
-    poster_path: string | null;
+    poster_path: string;
     overview: string;
     original_title: string;
     original_language: string;
@@ -50,27 +52,22 @@ interface Item {
     name: string;
     status: string;
     id: number;
-}
-interface Props {
-    medias: Media[];
+    unique_id: string;
+    type: "movie" | "tv";
+    year: number;
+    genres: Genre[];
 }
 
 const Detail: React.FC = () => {
-    const [movies, setMovies] = useState<Item[]>([]);
     const { toggleFavorite, isFavorite } = useFavorites();
+    const [mediaItem, setMediaItem] = useState<Item>();
 
     const handleToggleFavorite = useCallback(
-        (mediaItem: Media) => () => {
+        (mediaItem: Item) => () => {
             toggleFavorite(mediaItem);
         },
         [toggleFavorite]
     );
-
-  
-    const [mediaItem, setMediaItem] = useState<Item>();
-
-
-    //const Icon = isFavorite(media) ? FiCheckCircle : FiPlusCircle;
 
     const { params } = useRouteMatch<ItemParams>();
 
@@ -90,7 +87,7 @@ const Detail: React.FC = () => {
     return (
         <Container>
             <Header />
-            {mediaItem &&  (
+            {mediaItem && (
                 <Box>
                     <ContentAll>
                         <ContentCol>
@@ -157,6 +154,12 @@ const Detail: React.FC = () => {
                                 </MoreInfo>
                             </ContentText>
                             <ContentButton>
+                                <button
+                                    type="button"
+                                    onClick={handleToggleFavorite(mediaItem)}
+                                >
+                                    Adicionar aos favoritos
+                                </button>
                                 <button>Assistir depois</button>
                             </ContentButton>
                         </ContentCol>

@@ -1,17 +1,6 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
-import api from '../services/api2';
-import '@react-firebase/auth'
-
-
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    password: string;
-    date:string
-}
-
+import React, { createContext, useCallback, useState, useContext } from "react";
+import api from "../services/api2";
+import "@react-firebase/auth";
 
 interface AuthState {
     id: string;
@@ -26,7 +15,7 @@ interface signInCredentials {
 interface signInCredentialsFacebook {
     email: string;
     id: string;
-    name:string;
+    name: string;
 }
 
 interface AuthContextData {
@@ -40,8 +29,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
     const [data, setData] = useState<AuthState>(() => {
-        const id = localStorage.getItem('@TheMovie:token');
-        const name = localStorage.getItem('@TheMovie:user');
+        const id = localStorage.getItem("@TheMovie:token");
+        const name = localStorage.getItem("@TheMovie:user");
 
         if (id && name) {
             return { id, name };
@@ -51,45 +40,44 @@ const AuthProvider: React.FC = ({ children }) => {
     });
 
     const signIn = useCallback(async ({ email, password }) => {
-        const response = await api.post('sessions', {
+        const response = await api.post("sessions", {
             email,
             password,
         });
 
         const { id, name } = response.data;
 
-        localStorage.setItem('@TheMovie:token', id);
-        localStorage.setItem('@TheMovie:user', name);
+        localStorage.setItem("@TheMovie:token", id);
+        localStorage.setItem("@TheMovie:user", name);
 
         setData({ id, name });
     }, []);
 
     const signInFacebook = useCallback(async ({ email, name }) => {
-        const response = await api.post('sessions', {
+        const response = await api.post("sessions", {
             email,
             name,
         });
 
         const { id } = response.data;
 
-        localStorage.setItem('@TheMovie:token', id);
-        localStorage.setItem('@TheMovie:user', name);
+        localStorage.setItem("@TheMovie:token", id);
+        localStorage.setItem("@TheMovie:user", name);
 
         setData({ id, name });
     }, []);
 
-
-
-
     const signOut = useCallback(() => {
-        localStorage.removeItem('@TheMovie:token');
-        localStorage.removeItem('@TheMovie:user');
+        localStorage.removeItem("@TheMovie:token");
+        localStorage.removeItem("@TheMovie:user");
 
         setData({} as AuthState);
     }, []);
 
     return (
-        <AuthContext.Provider value={{ id: data.id, signIn, signOut,signInFacebook }}>
+        <AuthContext.Provider
+            value={{ id: data.id, signIn, signOut, signInFacebook }}
+        >
             {children}
         </AuthContext.Provider>
     );
@@ -99,7 +87,7 @@ function useAuth(): AuthContextData {
     const context = useContext(AuthContext);
 
     if (!context) {
-        throw new Error('useAuth must be used within a AuthProvider');
+        throw new Error("useAuth must be used within a AuthProvider");
     }
     return context;
 }
