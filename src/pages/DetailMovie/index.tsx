@@ -5,12 +5,14 @@ import { useRouteMatch } from "react-router-dom";
 
 import Header from "../../components/Header";
 import Button from "../../components/Button";
+import { Media, useFavorites } from "../../hooks/favourites";
 
 import { Link } from "react-router-dom";
 import notfound from "../../assets/notfound.svg";
-import api from '../../services/api2';
+import api from "../../services/api2";
+import Item from "../../components/Media";
 
-import { FiHeart } from "react-icons/fi";
+import { FiHeart, FiPlusCircle, FiCheckCircle } from "react-icons/fi";
 
 import {
     Container,
@@ -49,12 +51,26 @@ interface Item {
     status: string;
     id: number;
 }
+interface Props {
+    medias: Media[];
+}
 
 const Detail: React.FC = () => {
-    const [movie, setMovie] = useState({} as Item);
+    const [movies, setMovies] = useState<Item[]>([]);
+    const { toggleFavorite, isFavorite } = useFavorites();
+
+    const handleToggleFavorite = useCallback(
+        (mediaItem: Media) => () => {
+            toggleFavorite(mediaItem);
+        },
+        [toggleFavorite]
+    );
+
+  
     const [mediaItem, setMediaItem] = useState<Item>();
-    const [isFavorite, setIsFavorite] = useState(false);
-    const [showVideo] = useState<Boolean>(false);
+
+
+    //const Icon = isFavorite(media) ? FiCheckCircle : FiPlusCircle;
 
     const { params } = useRouteMatch<ItemParams>();
 
@@ -71,24 +87,10 @@ const Detail: React.FC = () => {
         return new Date(dataString);
     }
 
-    const toggleFavorite = useCallback(() => {
-        if (isFavorite) {
-            api.delete(`/favorites/${movie.id}`);
-        } else {
-            api.post(`/favorites`, movie);
-        }
-        setIsFavorite(!isFavorite);
-    }, [isFavorite, movie]);
-
-    const favoriteIconName = useMemo(
-        () => (isFavorite ? "favorite" : "favorite-border"),
-        [isFavorite]
-    );
-
     return (
         <Container>
             <Header />
-            {mediaItem && !showVideo && (
+            {mediaItem &&  (
                 <Box>
                     <ContentAll>
                         <ContentCol>
@@ -155,11 +157,6 @@ const Detail: React.FC = () => {
                                 </MoreInfo>
                             </ContentText>
                             <ContentButton>
-                                <Link to="/favorites">
-                                    <FiHeart />
-                                    Filme favorito
-                                </Link>
-
                                 <button>Assistir depois</button>
                             </ContentButton>
                         </ContentCol>
