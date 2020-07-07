@@ -99,14 +99,12 @@ const Dashboard: React.FC = () => {
                 <ProfileContainer>
                     {profiles &&
                         profiles.map((profile) => (
-                            <Link to="/dashboard">
-                                <Profile
-                                    key={profile.id}
-                                    profile={profile}
-                                    handleDelete={handleDeleteProfile}
-                                    handleEditProfile={handleEditProfile}
-                                />
-                            </Link>
+                            <Profile
+                                key={profile.id}
+                                profile={profile}
+                                handleDelete={handleDeleteProfile}
+                                handleEditProfile={handleEditProfile}
+                            />
                         ))}
                 </ProfileContainer>
             </Content>

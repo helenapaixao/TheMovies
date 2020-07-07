@@ -1,9 +1,11 @@
 import styled, { css } from "styled-components";
 
 export const Container = styled.div`
-    background: #28262e;
+
     border-radius: 10px;
+    background-color:#28262e;
     margin-left: 35px;
+    text-decoration:none;
     header {
         background: #ffb84d;
         border-radius: 8px 8px 0px 0px;
@@ -16,16 +18,23 @@ export const Container = styled.div`
     section.body {
         padding: 30px;
         h2 {
-            color: #3d3d4d;
+            color: black;
             text-decoration: none;
         }
         p {
-            color: #3d3d4d;
             margin-top: 16px;
             text-decoration: none;
         }
         svg {
+            margin-left:20px;
             color: #ffb84d;
+            text-decoration:none;
         }
     }
 `;
+
+export const ActionButtons = styled.div`
+
+
+
+` ;
