@@ -1,5 +1,5 @@
 import React from 'react';
-import SignIn from  '../../../pages/SignIn';
+import SignIn from  '../../pages/SignIn';
 import { render, fireEvent, wait } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
 
