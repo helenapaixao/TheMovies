@@ -1,18 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-
 import Header from "../../components/Header";
-
-
 
 import api from "../../services/api2";
 
-import MediaCarousel from '../../components/Moviecarousel'
+import MediaCarousel from "../../components/Moviecarousel";
 
-import {
-    Container,
-} from "./styles";
-
+import { Container } from "./styles";
 
 interface Item {
     poster_path: string | null;
@@ -85,9 +79,7 @@ const FavoriteMovie: React.FC = () => {
                 <h1>FavoriteMovie</h1>
 
                 {movies &&
-                    movies.map((movie) => (
-                        <MediaCarousel items={movies} />
-                    ))}
+                    movies.map((movie) => <MediaCarousel items={movies} />)}
             </Container>
         </>
     );

@@ -4,6 +4,7 @@ import { FiPower, FiSearch } from "react-icons/fi";
 import { Container, Profile } from "./styles";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/auth";
+import api from '../../services/api2'
 
 import Logo from "../../assets/logo.svg";
 
