@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useRouteMatch } from "react-router-dom";
 import { Container, Content, ProfileContainer } from "./styles";
 
 import Profile from "../../components/Profile";
@@ -13,20 +12,17 @@ interface IProfiledata {
     avatar: string;
     movieGenre: string;
 }
-interface IProfileParams {
-    id: string;
-}
+
 
 
 const Dashboard: React.FC = () => {
     const [profiles, setProfiles] = useState<IProfiledata[]>([]);
-    const [profile,setProfile] = useState<IProfiledata[]>([])
     const [editingProfile, setEditingProfile] = useState<IProfiledata>(
         {} as IProfiledata
     );
     const [modalOpen, setModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
-    const { params } = useRouteMatch<IProfileParams>();
+
 
     useEffect(() => {
         async function loadProfiles(): Promise<void> {

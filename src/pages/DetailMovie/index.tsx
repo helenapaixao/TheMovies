@@ -60,7 +60,7 @@ interface Item {
 }
 
 const Detail: React.FC = () => {
-    const { toggleFavorite, isFavorite } = useFavorites();
+    const { toggleFavorite} = useFavorites();
     const [mediaItem, setMediaItem] = useState<Item>();
 
     const handleToggleFavorite = useCallback(
