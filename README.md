@@ -1,5 +1,5 @@
 <h1 align="center">
-  🚀️ The Movies - Teste técnico Jera
+  🚀️ The Movies 
 </h1>
 
 <p align="center">
