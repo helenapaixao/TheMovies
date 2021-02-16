@@ -1,5 +1,5 @@
 import React, { useRef, useCallback} from "react";
-import { Container, Content, Image, Space } from "./styles";
+import { Container, Content, Space } from "./styles";
 import Logo from "../../assets/logo.svg";
 
 import { FormHandles } from "@unform/core";
