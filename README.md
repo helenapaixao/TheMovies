@@ -1,5 +1,5 @@
 <h1 align="center">
-  🚀️ The Movies - Teste técnico Jera
+  🚀️ The Movies 
 </h1>
 
 <p align="center">
@@ -35,11 +35,6 @@
 ---
 
 ## :rocket: Sobre o Projeto
-
-
-A proposta para o  Teste técnico era desenvolver uma aplicação
-Web ou Mobile para o armazenamento de uma lista de filmes que o usuário gostaria de assistir. 
-Essa lista foi pega pela API do TheMovieDB 
 
 O **The Movies** é a construção da versão web 
 
