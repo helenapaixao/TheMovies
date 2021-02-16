@@ -19,6 +19,11 @@ export const Container = styled.div`
     }
 `;
 
+export const Space = styled.div`
+margin-top: 10px;
+
+`;
+
 export const Image = styled.image`
   flex: 1;
   background: url(${signBackgroundImg}) no-repeat center;

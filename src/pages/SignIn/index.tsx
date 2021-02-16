@@ -1,5 +1,5 @@
 import React, { useRef, useCallback} from "react";
-import { Container, Content, Image } from "./styles";
+import { Container, Content, Image, Space } from "./styles";
 import Logo from "../../assets/logo.svg";
 
 import { FormHandles } from "@unform/core";
@@ -116,12 +116,15 @@ const SignIn: React.FC = () => {
                         placeholder="Senha"
                     />
                     <Button type="submit">Entrar</Button>
+                    <Space>
                     <FacebookLogin
                         appId="1445553365628155"
-                        autoLoad={true}
+                        autoLoad={ true}
                         fields="name,email,picture"
                         callback={responseFacebook}
                     />
+                    </Space>
+                  
                 </Form>
                 <Link to="/signup">
                     <FiLogIn />
