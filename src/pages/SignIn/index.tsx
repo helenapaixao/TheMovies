@@ -131,7 +131,7 @@ const SignIn: React.FC = () => {
                     Criar Conta
                 </Link>
             </Content>
-            <Image />
+            
         </Container>
     );
 };
